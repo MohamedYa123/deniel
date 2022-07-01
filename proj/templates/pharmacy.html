@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+{% extends 'Base.html' %}
+{% block content %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ph.Title}}</title>
+</head>
+<body>
+<div class="container">
+<div class="row">
+
+    <div class="row" style="padding:0px;margin:0%;"><img src="{{ph.image.url}}" class="img-fluid" alt="Responsive image"/><br><br>
+    {{ph.Title}}{% if ph.user == user %}
+<a href="{% url 'editapharmacy' ph.id %}" class="nav-link">edit</a>
+{% endif %}
+<br>
+<br>
+Owner:<a href="{% url 'profile' ph.user.id %}" class="nav-link"> {{ph.user}}</a>
+<br>
+<br>
+Location :<a href="{% url 'home' ph.location.id %}" class="nav-link"> {{ph.location}}</a>
+<br>
+<br>
+Description:<br>{{ph.description}}
+<br><br>
+{% if ee %}
+Special info :<br>
+{% if ph.user != user %}
+You see this information because your request has been aproved <br>
+{% endif %}
+{{ph.info_for_accepted_requests}}
+{% endif %}
+<br><br>
+        {% if  ph.open %}
+<a href="{% url 'requestwork' ph.id %}" class="btn btn-outline-success">Request&nbsp;Work</a>
+<br><br>
+{% else %}
+<label style="color:red">Requesting work is closed</label>
+{% endif %}<br><br>
+Rate:
+{% if f == 0 %}
+unrated
+{% else %}
+{{ph.feed}}✮
+{% endif %}
+
+<br>
+<br>
+
+
+
+<form action="" method="POST">
+    {% csrf_token %}
+    Your feedback:{{feed.value}}<br><br>
+    feedback
+<select name="feed" id="feed" style="width:50" class="form-control" >
+  <option value="0">0</option>
+  <option value="1">1</option>
+  <option value="2">2</option>
+  <option value="3">3</option>
+  <option value="4">4</option>
+  <option value="5">5</option>
+</select>
+    <br>
+    <div class="row">
+    <input value="{{feed.Comment}}" name="comment" class="col form-control me-2" />
+    <input  type="submit" class="col btn btn-outline-success"/></div>
+</form>
+<br><br>
+Comments:
+{% for fd2 in feeds %}
+<div class="card">
+  <h6 class="card-header"><a href="{% url 'profile' fd2.user.id %}" class="nav-link">{{fd2.user.username}}</a></h6>
+  <div class="card-body">{{fd2.value}}✮
+    <p>{{fd2.Comment}}</p>
+</div>
+    <br>
+</div>
+
+{% endfor %}
+<br>
+<br>
+           </div>
+
+</div>
+</div>
+</body>
+</html>
+{% endblock %}

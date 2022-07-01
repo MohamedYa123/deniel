@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+{% extends 'Base.html' %}
+{% block content %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>home</title>
+<script type="text/javascript">
+    function goToNewPage()
+    {
+        var url = document.getElementById('Location').value;
+        if(url != 'none') {
+            window.location = url;
+        }
+    }
+</script>
+</head>
+<body>
+&nbsp&nbsp<form class="d-flex" style="width:50%;margin-left:20%;">
+<select name="Location" id="Location" class="form-control">
+    <option value="{% url 'home' %}">all</option>
+{% for g in gev %}
+<option value="{% url 'home' g.id %}">{{g}}</option>
+    {% endfor %}
+</select>
+    <input type=button class="btn btn-outline-success" value="Go" onclick="goToNewPage()" />
+</form>
+{% if gv != "all" %}
+Pharmacies in {{gv}}:<br><br>
+{% endif %}<br><br>
+<div class="container">
+{% for ph in phs %}
+{% if forloop.counter0 == 0 %}
+<div class="row" style="">
+    {% endif %}
+    <div class="col-lg-4 col-md-6 col-sm-12">
+        <div class="card" style="width: 100%;padding:10px;">
+  <img src="{{ph.image.url}}" height="200" width="400" /><br>
+  <div class="card-body">
+    <a href="{% url 'pharmacy' ph.id %}">{{ph.Title}}</a>
+     <br> Rate:
+{% if ph.numoffeeds|add:"0" == 0 %}
+unrated
+{% else %}
+{{ph.feed}}✮
+    {% endif %}
+  </div>
+</div>
+
+
+ </div>
+{% endfor %}
+{% for ph in phs %}
+{% if forloop.counter0 == 0 %}
+</div>
+    {%endif%}
+    {% endfor %}</div>
+</body>
+</html>
+{% endblock %}
