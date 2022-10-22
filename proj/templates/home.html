@@ -1,60 +1,1152 @@
 <!DOCTYPE html>
-{% extends 'Base.html' %}
-{% block content %}
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <title>home</title>
-<script type="text/javascript">
-    function goToNewPage()
-    {
-        var url = document.getElementById('Location').value;
-        if(url != 'none') {
-            window.location = url;
-        }
-    }
-</script>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+ <style>
+body {
+  background-image: url('/media/source/logo.jpg');
+  background-attachment: fixed;
+  background-size: 100% 100%;
+  background-repeat: repeat-y;
+}
+
+/* Button used to open the chat form - fixed at the bottom of the page */
+.open-button {
+  background-color: #555;
+  color: white;
+  padding: 16px 20px;
+  border: none;
+  cursor: pointer;
+  opacity: 0.8;
+  position: fixed;
+  bottom: 23px;
+  right: 28px;
+  width: 280px;
+}
+
+/* The popup chat - hidden by default */
+.chat-popup {
+  display: none;
+  position: fixed;
+  bottom: 0;
+  right: 15px;
+  border: 3px solid #f1f1f1;
+  z-index: 9;
+}
+
+/* Add styles to the form container */
+.form-container {
+  max-width: 100%;
+  padding: 10px;
+  background-color: white;
+}
+
+/* Full-width textarea */
+.form-container textarea {
+  width: 100%;
+  padding: 15px;
+  margin: 5px 0 22px 0;
+  border: none;
+  background: #f1f1f1;
+  resize: none;
+  min-height: 200px;
+}
+
+/* When the textarea gets focus, do something */
+.form-container textarea:focus {
+  background-color: #ddd;
+  outline: none;
+}
+
+/* Set a style for the submit/send button */
+.form-container .btn {
+  background-color: #04AA6D;
+  color: white;
+  padding: 16px 20px;
+  border: none;
+  cursor: pointer;
+  width: 100%;
+  margin-bottom:10px;
+  opacity: 0.8;
+}
+
+/* Add a red background color to the cancel button */
+.form-container .cancel {
+  background-color: red;
+}
+
+/* Add some hover effects to buttons */
+.form-container .btn:hover, .open-button:hover {
+  opacity: 1;
+}
+
+.about-section {
+  padding: 50px;
+  text-align: center;
+  background-color: #474e5d;
+  color: white;
+}
+.container {
+  position: relative;
+  width: 100%;
+  max-width: 100%;
+}
+
+.ArabicText1 {
+	text-align: justify; 
+	font-family: Times New Roman, Times, serif; 
+	font-size: 20px;
+}
+.ArabicText2 {
+	text-align: justify; 
+	font-family: Times New Roman, Times, serif; 
+	font-size: 18px;
+	color: white;
+}
+
+.container img {
+  width: 100%;
+  height: auto;
+}
+
+.container .btn {
+  position: absolute;
+  top: 90%;
+  left: 12%;
+  transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+}
+
+
+.red {
+    width:100%;
+    height:100%;
+}
+
+.blue {
+    width: 50%;
+    display:inline-block;
+    margin-right: -4px;
+    box-sizing: border-box;
+    padding: 1%;
+}
+.blue1 {
+    width: 20%;
+    display:inline-block;
+    margin-right: -4px;
+    box-sizing: border-box;
+    padding: 1%;
+}
+.blue > div {
+    height:100%;
+}
+
+.popup .popuptext {
+visibility: hidden;
+background-color: #555;
+color: #fff;
+text-align: center;
+border-radius: 6px;
+padding: 8px 0;
+z-index: 1;
+bottom: 125%;
+left: 50%;
+margin-left: -80px;
+}
+.popup .show {
+visibility: visible;
+-webkit-animation: fadeIn 1s;
+animation: fadeIn 1s;
+}
+@-webkit-keyframes fadeIn {
+from {opacity: 0;} 
+to {opacity: 1;}
+}
+@keyframes fadeIn {
+from {opacity: 0;}
+to {opacity:1 ;}
+}
+
+</style> 
+<style>
+* {box-sizing: border-box;}
+body {font-family: Verdana, sans-serif;}
+.mySlides {display: none;}
+img {vertical-align: middle;}
+
+/* Slideshow container */
+.slideshow-container {
+
+  float: left;
+  position: center;
+}
+
+/* Caption text */
+.text {
+  color: #f2f2f2;
+  font-size: 15px;
+  padding: 8px 12px;
+  position: absolute;
+  bottom: 8px;
+  width: 100%;
+  text-align: center;
+}
+
+/* Number text (1/3 etc) */
+.numbertext {
+  color: #f2f2f2;
+  font-size: 12px;
+  padding: 8px 12px;
+  position: absolute;
+  top: 0;
+}
+
+/* The dots/bullets/indicators */
+.dot {
+  height: 15px;
+  width: 15px;
+  margin: 0 2px;
+  background-color: #bbb;
+  border-radius: 50%;
+  display: inline-block;
+  transition: background-color 0.3s ease;
+}
+
+.active {
+  background-color: #717171;
+}
+
+/* Fading animation */
+.fade {
+  animation-name: fade;
+  animation-duration: 1.5s;
+}
+
+@keyframes fade {
+  from {opacity: .4} 
+  to {opacity: 1}
+}
+
+/* On smaller screens, decrease text size */
+@media only screen and (max-width: 300px) {
+  .text {font-size: 11px}
+}
+</style>
+<body>
+
+
+<style>
+ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+}
+
+li {
+  float: left;
+}
+
+
+.topright {
+  position: absolute;
+  top: 20px;
+  right: 0.01%;
+  font-size: 18px;
+  position: absolute;
+  z-index: 1;
+}
+li a {
+  display: block;
+  color: white;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+}
+
+li a:hover {
+  background-color: #222;
+}
+.column {
+  float: left;
+  width: 33%;
+  padding: 1px;
+}
+
+/* Clear floats after image containers */
+.row::after {
+  content: "";
+  clear: both;
+  display: table;
+}
+</style>
 </head>
 <body>
-&nbsp&nbsp<form class="d-flex" style="width:50%;margin-left:20%;">
-<select name="Location" id="Location" class="form-control">
-    <option value="{% url 'home' %}">all</option>
-{% for g in gev %}
-<option value="{% url 'home' g.id %}">{{g}}</option>
-    {% endfor %}
-</select>
-    <input type=button class="btn btn-outline-success" value="Go" onclick="goToNewPage()" />
-</form>
-{% if gv != "all" %}
-Pharmacies in {{gv}}:<br><br>
-{% endif %}<br><br>
+
+<section>
 <div class="container">
-{% for ph in phs %}
-{% if forloop.counter0 == 0 %}
-<div class="row" style="">
-    {% endif %}
-    <div class="col-lg-4 col-md-6 col-sm-12">
-        <div class="card" style="width: 100%;padding:10px;">
-  <img src="{{ph.image.url}}" height="200" width="400" /><br>
-  <div class="card-body">
-    <a href="{% url 'pharmacy' ph.id %}">{{ph.Title}}</a>
-     <br> Rate:
-{% if ph.numoffeeds|add:"0" == 0 %}
-unrated
-{% else %}
-{{ph.feed}}✮
-    {% endif %}
-  </div>
+  
+<div class="slideshow-container" style="width:100%; max-height:2000px">
+<li><a <h2>VISION ARCHITECTURE</h2></a></li>
+<div style="display: flex; justify-content: center;">
+<ul style="width: 80%;">
+
+  <li><a class="active" href="#home">Home</a></li>
+  <li> <address> <a class="active" href="mailto:vision.architect21@gmail.com"> Email   <i style="font-size:18px" class="fa">&#xf0e0;</i></a> </address></li>
+  <li><a class="active" href="https://wa.me/+971509642043" target="_blank"> WhatsApp  <i style="font-size:18px" class="fa">&#xf232;</i></a></li>
+  <li><a class="active" href="https://instagram.com/vision.architect2?igshid=YmMyMTA2M2Y=" target="_blank">Instagram <i style="font-size:18px" class="fa">&#xf16d;</i></a></li>
+  <li><a class="active" onclick="openForm()" target="_blank"><i style="font-size:18px" class="fa">&#xf075;</i></a></li>
+   
+<li style="float:right;"><a  <h3 >Changing your view of future</h3></a></li>
+</ul>
+</div>
+<div class="topright"><img class="topright" src="/media/source/logo1.jpg" style="position: absolute; width:150px; height:150px"></div>
+<div class="mySlides fade">
+	<img src="/media/source/slider01.jpg" style="width:100%; background-size: 100% 100%; padding: 0; display: block;" alt="" style="width:100%; height:100%"> 
+</div>
+<div class="mySlides fade">
+	<img src="/media/source/slider02.jpg" style="width:100%; background-size: 100% 100%; padding: 0; display: block;" alt="" style="width:100%; height:100%"> 
+</div>
+<div class="mySlides fade">
+	<img src="/media/source/slider03.jpg" style="width:100%; background-size: 100% 100%; padding: 0; display: block;" alt="" style="width:100%; height:100%"> 
+</div>
+<div class="mySlides fade">
+	<img src="/media/source/slider04.jpg" style="width:100%; background-size: 100% 100%; padding: 0; display: block;" alt="" style="width:100%; height:100%"> 
+</div>
+<div class="mySlides fade">
+	<img src="/media/source/slider05.jpg" style="width:100%; background-size: 100% 100%; padding: 0; display: block;" alt="" style="width:100%; height:100%"> 
+</div>
+<div class="mySlides fade">
+	<img src="/media/source/slider06.jpg" style="width:100%; background-size: 100% 100%; padding: 0; display: block;" alt="" style="width:100%; height:100%"> 
+</div>
+<div class="mySlides fade">
+	<img src="/media/source/slider07.jpg" style="width:100%; background-size: 100% 100%; padding: 0; display: block;" alt="" style="width:100%; height:100%"> 
+</div>
+<div class="mySlides fade">
+	<img src="/media/source/slider08.jpg" style="width:100%; background-size: 100% 100%; padding: 0; display: block;" alt="" style="width:100%; height:100%"> 
+</div>
+<div class="mySlides fade">
+	<img src="/media/source/slider09.jpg" style="width:100%; background-size: 100% 100%; padding: 0; display: block;" alt="" style="width:100%; height:100%"> 
+</div>
+<div class="mySlides fade">
+	<img src="/media/source/slider10.jpg" style="width:100%; background-size: 100% 100%; padding: 0; display: block;" alt="" style="width:100%; height:100%"> 
+</div>
+<div class="mySlides fade" >
+	<img src="/media/source/slider11.jpg" style="width:100%; background-size: 100% 100%; padding: 0; display: block;" alt="" style="width:100%; height:100%"> 
+</div>
+<div class="mySlides fade">
+	<img src="/media/source/slider12.jpg" style="width:100%; background-size: 100% 100%; padding: 0; display: block;" alt="" style="width:100%; height:100%"> 
+</div>
+<div class="mySlides fade">
+	<img src="/media/source/slider13.jpg" style="width:100%; background-size: 100% 100%; padding: 0; display: block;" alt="" style="width:100%; height:100%"> 
+</div>
+<div class="mySlides fade">
+	<img src="/media/source/slider14.jpg" style="width:100%; background-size: 100% 100%; padding: 0; display: block;" alt="" style="width:100%; height:100%"> 
+</div>
+<div class="mySlides fade">
+	<img src="/media/source/slider15.jpg" style="width:100%; background-size: 100% 100%; padding: 0; display: block;" alt="" style="width:100%; height:100%"> 
+</div>
+<div class="mySlides fade">
+	<img src="/media/source/slider16.jpg" style="width:100%; background-size: 100% 100%; padding: 0; display: block;" alt="" style="width:100%; height:100%"> 
+</div>
+<div class="mySlides fade">
+	<img src="/media/source/slider17.jpg" style="width:100%; background-size: 100% 100%; padding: 0; display: block;" alt="" style="width:100%; height:100%"> 
+</div>
+<div class="mySlides fade">
+	<img src="/media/source/slider18.jpg" style="width:100%; background-size: 100% 100%; padding: 0; display: block;" alt="" style="width:100%; height:100%"> 
+</div>
+<div class="mySlides fade">
+	<img src="/media/source/slider19.jpg" style="width:100%; background-size: 100% 100%; padding: 0; display: block;" alt="" style="width:100%; height:100%"> 
+</div>
+<div class="mySlides fade">
+	<img src="/media/source/slider20.jpg" style="width:100%; background-size: 100% 100%; padding: 0; display: block;" alt="" style="width:100%; height:100%"> 
 </div>
 
 
- </div>
-{% endfor %}
-{% for ph in phs %}
-{% if forloop.counter0 == 0 %}
 </div>
-    {%endif%}
-    {% endfor %}</div>
+</div>
+<br>
+<div class="chat-popup" id="myForm">
+  <form action="/action_page.php" class="form-container">
+    <h1>Write yourname and question</h1>
+
+    <label for="msg"><b>Message</b></label>
+    <textarea id="myText" placeholder="Type message.." name="msg" required></textarea>
+
+    <button type="button" class="btn" onclick="SendForm()">Send</button>
+    <button type="button" class="btn cancel" onclick="closeForm()">Close</button>
+  </form>
+</div>
+	    </section>
+<div style="text-align:center">
+  <span class="dot"></span> 
+  <span class="dot"></span> 
+  <span class="dot"></span> 
+  <span class="dot"></span> 
+  <span class="dot"></span> 
+  <span class="dot"></span> 
+  <span class="dot"></span> 
+  <span class="dot"></span> 
+  <span class="dot"></span> 
+  <span class="dot"></span> 
+  <span class="dot"></span> 
+  <span class="dot"></span> 
+  <span class="dot"></span> 
+  <span class="dot"></span> 
+  <span class="dot"></span> 
+  <span class="dot"></span> 
+  <span class="dot"></span> 
+  <span class="dot"></span> 
+  <span class="dot"></span> 
+  <span class="dot"></span> 
+</div>
+<section>
+    <div class="row">
+		<div class="column">
+			<div class="slick" style="" aria-hidden="true" tabindex="0">
+                <div class="">
+                    <img src="/media/source/projects/alaa 2/1/a (1).jpg" alt="" style="width:100%; height:100%"> 
+                    <div style="color:white; font-size:100%;">
+                            <p class="ArabicText">PROJECT 1</p>
+                    </div>
+                </div>
+            </div>
+		</div>
+		<div class="column">
+			<div class="slick" style="" aria-hidden="true" tabindex="-1">
+                <div class="">
+                    <img src="/media/source/projects/alaa 2/1/a (2).jpg" alt="" style="width:100%; height:100%"> 
+                    <div style="color:white; font-size:100%;">
+                            <p class="ArabicText2">PROJECT 2</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+		<div class="column">
+			<div class="slick" style="" aria-hidden="true" tabindex="-1">
+                <div class="">
+                    <img src="/media/source/projects/alaa 2/1/a (3).jpg" alt="" style="width:100%; height:100%"> 
+                    <div style="color:white; font-size:100%;">
+                            <p class="ArabicText2">PROJECT 3</p>
+					</div>
+                </div>
+            </div>
+		</div>
+	</div>
+		
+    <div class="row">
+		<div class="column">
+		<div class="slick" style="" aria-hidden="true" tabindex="-1">
+                <div class="">
+                    <img src="/media/source/projects/alaa 2/2/a (1).jpg" alt="" style="width:100%; height:100%"> 
+                    <div style="color:white; font-size:100%;">
+                            <p class="ArabicText2">PROJECT 4</p>
+                    </div>
+                </div>
+                </div>
+				</div>
+		<div class="column">
+            <div class="slick" style="" aria-hidden="true" tabindex="-1">
+                <div class="">
+                    <img src="/media/source/projects/alaa 2/2/a (2).jpg" alt="" style="width:100%; height:100%"> 
+                    <div style="color:white; font-size:100%;">
+                            <p class="ArabicText2">PROJECT 5</p>
+                    </div>
+                </div>
+            </div>
+				</div>
+		<div class="column">
+                <div class="">
+                    <img src="/media/source/projects/alaa 2/2/a (3).jpg" alt="" style="width:100%; height:100%"> 
+                    <div style="color:white; font-size:100%;">
+                            <p class="ArabicText2">PROJECT 6</p>
+                    </div>
+                </div>
+            </div>
+	</div>
+       <div class="row">
+		<div class="column">
+                <div class="">
+                    <img src="/media/source/projects/alaa 2/3/a (1).jpg" alt="" style="width:100%; height:100%"> 
+                    <div style="color:white; font-size:100%;">
+                            <p class="ArabicText2">PROJECT 7</p>
+                    </div>
+                </div>
+		</div>
+		<div class="column">
+                <div class="">
+                    <img src="/media/source/projects/alaa 2/3/a (2).jpg" alt="" style="width:100%; height:100%"> 
+                    <div style="color:white; font-size:100%;">
+                            <p class="ArabicText2">PROJECT 8</p>
+                    </div>
+                </div>
+		</div>
+		<div class="column">
+                <div class="">
+                    <img src="/media/source/projects/alaa 2/3/a (3).jpg" alt="" style="width:100%; height:100%"> 
+                    <div style="color:white; font-size:100%;">
+                            <p class="ArabicText2">PROJECT 9</p>
+                    </div>
+                </div>
+		</div>
+		</div>
+       <div class="row">
+		<div class="column">
+                <div class="">
+                    <img src="/media/source/projects/alaa 1/1/a (1).jpg" alt="" style="width:100%; height:100%"> 
+                    <div style="color:white; font-size:100%;">
+                            <p class="ArabicText2">PROJECT 10</p>
+                    </div>
+                </div>
+            </div>
+		<div class="column">
+                <div class="">
+                    <img src="/media/source/projects/alaa 1/1/a (2).jpg" alt="" style="width:100%; height:100%"> 
+                    <div style="color:white; font-size:100%;">
+                            <p class="ArabicText2">PROJECT 11</p>
+                        </div>
+                </div>
+            </div>
+		<div class="column">
+                <div class="">
+                    <img src="/media/source/projects/alaa 1/1/a (3).jpg" alt="" style="width:100%; height:100%"> 
+                    <div style="color:white; font-size:100%;">
+                            <p class="ArabicText2">PROJECT 12</p>
+                        </div>
+                </div>
+            </div>
+	</div>
+			
+       <div class="row">
+		<div class="column">
+                <div class="">
+                    <img src="/media/source/projects/alaa 1/2/a (1).jpg" alt="" style="width:100%; height:100%"> 
+                    <div style="color:white; font-size:100%;">
+                            <p class="ArabicText2">PROJECT 13</p>
+                    </div>
+                </div>
+            </div>
+		<div class="column">
+                <div class="">
+                    <img src="/media/source/projects/alaa 1/2/a (2).jpg" alt="" style="width:100%; height:100%"> 
+                    <div style="color:white; font-size:100%;">
+                            <p class="ArabicText2">PROJECT 14</p>
+                    </div>
+                </div>
+            </div>
+		<div class="column">
+                <div class="">
+                    <img src="/media/source/projects/alaa 1/2/a (3).jpg" alt="" style="width:100%; height:100%"> 
+                    <div style="color:white; font-size:100%;">
+                            <p class="ArabicText2">PROJECT 15</p>
+                    </div>
+                </div>
+            </div>
+	</div>
+		<div class="row">
+		<div class="column">
+                <div class="">
+                    <img src="/media/source/projects/alaa 1/3/a (3).jpg" alt="" style="width:100%; height:100%"> 
+                    <div style="color:white; font-size:100%;">
+                            <p class="ArabicText2">PROJECT 16</p>
+                    </div>
+                </div>
+            </div>
+		<div class="column">
+                <div class="">
+                    <img src="/media/source/projects/alaa 1/3/a (1).jpg" alt="" style="width:100%; height:100%"> 
+                    <div style="color:white; font-size:100%;">
+                            <p class="ArabicText2">PROJECT 17</p>
+                    </div>
+                </div>
+            </div>
+		<div class="column">
+                <div class="">
+                    <img src="/media/source/projects/alaa 1/3/a (2).jpg" alt="" style="width:100%; height:100%"> 
+                    <div style="color:white; font-size:100%;">
+                            <p class="ArabicText2">PROJECT 18</p>
+                    </div>
+                </div>
+            </div>
+		</div>
+		
+		<div class="row">
+		<div class="column">
+                <div class="">
+                    <img src="/media/source/projects/alaa 1/4/a (3).jpg" alt="" style="width:100%; height:100%"> 
+                    <div style="color:white; font-size:100%;">
+                            <p class="ArabicText2">PROJECT 19</p>
+                    </div>
+                </div>
+            </div>
+		<div class="column">
+                <div class="">
+                    <img src="/media/source/projects/alaa 1/4/a (1).jpg" alt="" style="width:100%; height:100%"> 
+                    <div style="color:white; font-size:100%;">
+                            <p class="ArabicText2">PROJECT 20</p>
+                    </div>
+                </div>
+            </div>
+		<div class="column">
+                <div class="">
+                    <img src="/media/source/projects/alaa 1/4/a (2).jpg" alt="" style="width:100%; height:100%"> 
+                    <div style="color:white; font-size:100%;">
+                            <p class="ArabicText2">PROJECT 21</p>
+                    </div>
+                </div>
+            </div>
+		</div>
+		
+		<div class="row">
+		<div class="column">
+                <div class="">
+                    <img src="/media/source/projects/alaa 1/5/a (3).jpg" alt="" style="width:100%; height:100%"> 
+                    <div style="color:white; font-size:100%;">
+                            <p class="ArabicText2">PROJECT 22</p>
+                    </div>
+                </div>
+            </div>
+		<div class="column">
+                <div class="">
+                    <img src="/media/source/projects/alaa 1/5/a (1).jpg" alt="" style="width:100%; height:100%"> 
+                    <div style="color:white; font-size:100%;">
+                            <p class="ArabicText2">PROJECT 23</p>
+                    </div>
+                </div>
+            </div>
+		<div class="column">
+                <div class="">
+                    <img src="/media/source/projects/alaa 1/5/a (2).jpg" alt="" style="width:100%; height:100%"> 
+                    <div style="color:white; font-size:100%;">
+                            <p class="ArabicText2">PROJECT 24</p>
+                    </div>
+                </div>
+            </div>
+		</div>
+		
+		
+		<div class="row">
+		<div class="column">
+                <div class="">
+                    <img src="/media/source/projects/alaa 1/6/a (3).jpg" alt="" style="width:100%; height:100%"> 
+                    <div style="color:white; font-size:100%;">
+                            <p class="ArabicText2">PROJECT 25</p>
+                    </div>
+                </div>
+            </div>
+		<div class="column">
+                <div class="">
+                    <img src="/media/source/projects/alaa 1/6/a (1).jpg" alt="" style="width:100%; height:100%"> 
+                    <div style="color:white; font-size:100%;">
+                            <p class="ArabicText2">PROJECT 26</p>
+                    </div>
+                </div>
+            </div>
+		<div class="column">
+                <div class="">
+                    <img src="/media/source/projects/alaa 1/6/a (2).jpg" alt="" style="width:100%; height:100%"> 
+                    <div style="color:white; font-size:100%;">
+                            <p class="ArabicText2">PROJECT 27</p>
+                    </div>
+                </div>
+            </div>
+		</div>
+		
+		
+		
+		<div class="row">
+		<div class="column">
+                <div class="">
+                    <img src="/media/source/projects/alaa 1/7/a (3).jpg" alt="" style="width:100%; height:100%"> 
+                    <div style="color:white; font-size:100%;">
+                            <p class="ArabicText2">PROJECT 28</p>
+                    </div>
+                </div>
+            </div>
+		<div class="column">
+                <div class="">
+                    <img src="/media/source/projects/alaa 1/7/a (1).jpg" alt="" style="width:100%; height:100%"> 
+                    <div style="color:white; font-size:100%;">
+                            <p class="ArabicText2">PROJECT 29</p>
+                    </div>
+                </div>
+            </div>
+		<div class="column">
+                <div class="">
+                    <img src="/media/source/projects/alaa 1/7/a (2).jpg" alt="" style="width:100%; height:100%"> 
+                    <div style="color:white; font-size:100%;">
+                            <p class="ArabicText2">PROJECT 30</p>
+                    </div>
+                </div>
+            </div>
+		</div>
+		
+		
+		<div class="row">
+		<div class="column">
+                <div class="">
+                    <img src="/media/source/projects/alaa 1/8/a (3).jpg" alt="" style="width:100%; height:100%"> 
+                    <div style="color:white; font-size:100%;">
+                            <p class="ArabicText2">PROJECT 31</p>
+                    </div>
+                </div>
+            </div>
+		<div class="column">
+                <div class="">
+                    <img src="/media/source/projects/alaa 1/8/a (1).jpg" alt="" style="width:100%; height:100%"> 
+                    <div style="color:white; font-size:100%;">
+                            <p class="ArabicText2">PROJECT 32</p>
+                    </div>
+                </div>
+            </div>
+		<div class="column">
+                <div class="">
+                    <img src="/media/source/projects/alaa 1/8/a (2).jpg" alt="" style="width:100%; height:100%"> 
+                    <div style="color:white; font-size:100%;">
+                            <p class="ArabicText2">PROJECT 33</p>
+                    </div>
+                </div>
+            </div>
+		</div>
+		
+		
+		<div class="row">
+		<div class="column">
+                <div class="">
+                    <img src="/media/source/projects/alaa 1/9/a (3).jpg" alt="" style="width:100%; height:100%"> 
+                    <div style="color:white; font-size:100%;">
+                            <p class="ArabicText2">PROJECT 34</p>
+                    </div>
+                </div>
+            </div>
+		<div class="column">
+                <div class="">
+                    <img src="/media/source/projects/alaa 1/9/a (1).jpg" alt="" style="width:100%; height:100%"> 
+                    <div style="color:white; font-size:100%;">
+                            <p class="ArabicText2">PROJECT 35</p>
+                    </div>
+                </div>
+            </div>
+		<div class="column">
+                <div class="">
+                    <img src="/media/source/projects/alaa 1/9/a (2).jpg" alt="" style="width:100%; height:100%"> 
+                    <div style="color:white; font-size:100%;">
+                            <p class="ArabicText2">PROJECT 36</p>
+                    </div>
+                </div>
+            </div>
+		</div>
+		
+		
+		<div class="row">
+		<div class="column">
+                <div class="">
+                    <img src="/media/source/projects/alaa 1/10/a (3).jpg" alt="" style="width:100%; height:100%"> 
+                    <div style="color:white; font-size:100%;">
+                            <p class="ArabicText2">PROJECT 37</p>
+                    </div>
+                </div>
+            </div>
+		<div class="column">
+                <div class="">
+                    <img src="/media/source/projects/alaa 1/10/a (1).jpg" alt="" style="width:100%; height:100%"> 
+                    <div style="color:white; font-size:100%;">
+                            <p class="ArabicText2">PROJECT 38</p>
+                    </div>
+                </div>
+            </div>
+		<div class="column">
+                <div class="">
+                    <img src="/media/source/projects/alaa 1/10/a (2).jpg" alt="" style="width:100%; height:100%"> 
+                    <div style="color:white; font-size:100%;">
+                            <p class="ArabicText2">PROJECT 39</p>
+                    </div>
+                </div>
+            </div>
+		</div>
+		
+		<div class="row">
+		<div class="column">
+                <div class="">
+                    <img src="/media/source/projects/alaa 1/12/a (3).jpg" alt="" style="width:100%; height:100%"> 
+                    <div style="color:white; font-size:100%;">
+                            <p class="ArabicText2">PROJECT 40</p>
+                    </div>
+                </div>
+            </div>
+		<div class="column">
+                <div class="">
+                    <img src="/media/source/projects/alaa 1/12/a (1).jpg" alt="" style="width:100%; height:100%"> 
+                    <div style="color:white; font-size:100%;">
+                            <p class="ArabicText2">PROJECT 41</p>
+                    </div>
+                </div>
+            </div>
+		<div class="column">
+                <div class="">
+                    <img src="/media/source/projects/alaa 1/12/a (2).jpg" alt="" style="width:100%; height:100%"> 
+                    <div style="color:white; font-size:100%;">
+                            <p class="ArabicText2">PROJECT 42</p>
+                    </div>
+                </div>
+            </div>
+		</div>
+		
+		
+		<div class="row">
+		<div class="column">
+                <div class="">
+                    <img src="/media/source/projects/alaa 1/13/a (3).jpg" alt="" style="width:100%; height:100%"> 
+                    <div style="color:white; font-size:100%;">
+                            <p class="ArabicText2">PROJECT 43</p>
+                    </div>
+                </div>
+            </div>
+		<div class="column">
+                <div class="">
+                    <img src="/media/source/projects/alaa 1/13/a (1).jpg" alt="" style="width:100%; height:100%"> 
+                    <div style="color:white; font-size:100%;">
+                            <p class="ArabicText2">PROJECT 44</p>
+                    </div>
+                </div>
+            </div>
+		<div class="column">
+                <div class="">
+                    <img src="/media/source/projects/alaa 1/13/a (2).jpg" alt="" style="width:100%; height:100%"> 
+                    <div style="color:white; font-size:100%;">
+                            <p class="ArabicText2">PROJECT 45</p>
+                    </div>
+                </div>
+            </div>
+		</div>
+
+		<div class="row">
+		<div class="column">
+                <div class="">
+                    <img src="/media/source/projects/alaa 1/14/a (3).jpg" alt="" style="width:100%; height:100%"> 
+                    <div style="color:white; font-size:100%;">
+                            <p class="ArabicText2">PROJECT 46</p>
+                    </div>
+                </div>
+            </div>
+		<div class="column">
+                <div class="">
+                    <img src="/media/source/projects/alaa 1/14/a (1).jpg" alt="" style="width:100%; height:100%"> 
+                    <div style="color:white; font-size:100%;">
+                            <p class="ArabicText2">PROJECT 47</p>
+                    </div>
+                </div>
+            </div>
+		<div class="column">
+                <div class="">
+                    <img src="/media/source/projects/alaa 1/14/a (2).jpg" alt="" style="width:100%; height:100%"> 
+                    <div style="color:white; font-size:100%;">
+                            <p class="ArabicText2">PROJECT 48</p>
+                    </div>
+                </div>
+            </div>
+		</div>
+		
+		
+		<div class="row">
+		<div class="column">
+                <div class="">
+                    <img src="/media/source/projects/alaa 1/15/a (3).jpg" alt="" style="width:100%; height:100%"> 
+                    <div style="color:white; font-size:100%;">
+                            <p class="ArabicText2">PROJECT 49</p>
+                    </div>
+                </div>
+            </div>
+		<div class="column">
+                <div class="">
+                    <img src="/media/source/projects/alaa 1/15/a (1).jpg" alt="" style="width:100%; height:100%"> 
+                    <div style="color:white; font-size:100%;">
+                            <p class="ArabicText2">PROJECT 50</p>
+                    </div>
+                </div>
+            </div>
+		<div class="column">
+                <div class="">
+                    <img src="/media/source/projects/alaa 1/15/a (2).jpg" alt="" style="width:100%; height:100%"> 
+                    <div style="color:white; font-size:100%;">
+                            <p class="ArabicText2">PROJECT 51</p>
+                    </div>
+                </div>
+            </div>
+		</div>
+		
+		<div class="row">
+		<div class="column">
+                <div class="">
+                    <img src="/media/source/projects/alaa 1/16/a (3).jpg" alt="" style="width:100%; height:100%"> 
+                    <div style="color:white; font-size:100%;">
+                            <p class="ArabicText2">PROJECT 52</p>
+                    </div>
+                </div>
+            </div>
+		<div class="column">
+                <div class="">
+                    <img src="/media/source/projects/alaa 1/16/a (1).jpg" alt="" style="width:100%; height:100%"> 
+                    <div style="color:white; font-size:100%;">
+                            <p class="ArabicText2">PROJECT 53</p>
+                    </div>
+                </div>
+            </div>
+		<div class="column">
+                <div class="">
+				    <img src="/media/source/projects/alaa 1/16/a (2).jpg" alt="" style="width:100%; height:100%"> 
+                    <div style="color:white; font-size:100%;">
+                            <p class="ArabicText2">PROJECT 54</p>
+                    </div>
+                </div>
+            </div>
+		</div>
+
+    </section>
+	<section>
+	<div  id="video">
+	<div class="red">
+		<div class="blue">
+			<div class="popup1" onclick="myFunction1()">
+				<video id="myPopup1" style ="width:100%; height:100%;" controls>
+				<source src="/media/source/projects/video/1.mp4" type="video/mp4"></video>
+			</div>
+		</div>
+		<div class="blue">
+			<div class="popup2" onclick="myFunction2()">
+				<video id="myPopup2" style ="width:100%; height:100%;" controls>
+				<source src="/media/source/projects/video/2.mp4" type="video/mp4"></video>
+			</div>
+		</div>
+		<div class="blue">
+			<div class="popup3" onclick="myFunction3()">
+				<video id="myPopup3" style ="width:100%; height:100%;" controls>
+				<source src="/media/source/projects/video/3.mp4" type="video/mp4"></video>
+			</div>
+		</div>
+		<div class="blue">
+			<div class="popup3" onclick="myFunction4()">
+				<video id="myPopup4" style ="width:100%; height:100%;" controls>
+				<source src="/media/source/projects/video/4.mp4" type="video/mp4"></video>
+			</div>
+		</div>
+		<div class="blue">
+			<div class="popup3" onclick="myFunction5()">
+				<video id="myPopup5" style ="width:100%; height:100%;" controls>
+				<source src="/media/source/projects/video/5.mp4#t=0.1" type="video/mp4"></video>
+			</div>
+		</div>
+		<div class="blue">
+			<div class="popup3" onclick="myFunction6()">
+				<video id="myPopup6" style ="width:100%; height:100%;" controls>
+				<source src="/media/source/projects/video/6.mp4#t=0.1" type="video/mp4"></video>
+			</div>
+		</div>
+	</div>
+     </div>   
+    </section>
+	    <section>
+		<div class="about-section">
+		
+		  <h1 class="ArabicText1" style="font-size:50px;text-align:center"> About Us Page</h1>
+		  <p dir="ltr" class="ArabicText1"> Services: We are full integrated engineering company, it was established to provide architectural services according to the finest and most modern design principles. 
+		  Our vision company offers unique luxury and elegance architectural designs. It contains a team of highly skilled and experienced architects, interior designers, landscape architects and construction managers. 
+		  In addition to introducing the concepts of smart architecture and design using artificial intelligence and integrating them with architecture to make more effective, flexible and comfortable homes and buildings. 
+		  The team works to show the aesthetic details of architecture, and tries to observe the details of the design in order to achieve the final result of the design in a correct, accurate, and error-free manner. 
+		  </p>
+		  <span style="font-size:200%;color:yellow;">&starf;</span><span style="font-size:200%;color:red;">&star;</span><span style="font-size:200%;color:blue;">&bigstar;</span>
+
+		  <p dir="ltr" class="ArabicText1">
+			The first: engineering plans according to the principles of design and building controls, which are featured by the distribution of architectural spaces, 
+			achieving all spaces utilization and achieving the highest standards of sensory and visual beauty. 
+		</p>
+		<span style="font-size:200%;color:yellow;">&starf;</span><span style="font-size:200%;color:red;">&star;</span><span style="font-size:200%;color:blue;">&bigstar;</span>
+		<p dir="ltr" class="ArabicText1">
+			Second: Preparing complete two-dimensional architectural plans and converting them to three-dimensional with the distribution of furniture for each room, 
+			and the adoption of the interactive system methodology in the design that allows the owner to view the building in virtual reality during the design and understand the visual dimensions, 
+			architectural beauty, and the impact of the sun and the environment on the design. 
+		</p>
+		<span style="font-size:200%;color:yellow;">&starf;</span><span style="font-size:200%;color:red;">&star;</span><span style="font-size:200%;color:blue;">&bigstar;</span>
+		<p dir="ltr" class="ArabicText1">
+			The third: the Department of Interior Design and Furniture, where it works to solve all the architectural and interior design problems to create an interior field that serves the various functions of human life, 
+			and to employ all the fine and applied arts in an aesthetic and functional organization to create the appropriate internal environment.
+		</p>
+		<span style="font-size:200%;color:yellow;">&starf;</span><span style="font-size:200%;color:red;">&star;</span><span style="font-size:200%;color:blue;">&bigstar;</span>
+		<p dir="ltr" class="ArabicText1">
+			Fourth: Exterior Design Department (Gardens), Choosing an exterior design that is suitable to the environment surrounding with consideration of the project location and the owner s budget. 
+			The exterior design includes both physical structures, in addition to technical designs, such as: paint color, roof shape, materials, floors, gardens, and so on. 
+		</p>
+		<span style="font-size:200%;color:yellow;">&starf;</span><span style="font-size:200%;color:red;">&star;</span><span style="font-size:200%;color:blue;">&bigstar;</span>
+		<p dir="ltr" class="ArabicText1">
+			Fifth: A complete inventory of the actual quantities according to the approved plans for the project. 
+		</p>
+		<span style="font-size:200%;color:yellow;">&starf;</span><span style="font-size:200%;color:red;">&star;</span><span style="font-size:200%;color:blue;">&bigstar;</span>
+		<p dir="ltr" class="ArabicText1">
+			Sixth: Incorporating intelligent, automated, programmable technologies into the building's HVAC systems to provide a dynamic HVAC indoor environment with the goal 
+			of achieving an optimal balance between occupant comfort and energy efficiency. 
+		</p>
+		<span style="font-size:200%;color:yellow;">&starf;</span><span style="font-size:200%;color:red;">&star;</span><span style="font-size:200%;color:blue;">&bigstar;</span>
+		<p dir="ltr" class="ArabicText1">
+			Sustainable architecture: a trend that seeks to preserve the natural environment and its resources and reduce environmental pollution resulting from buildings, 
+			through the use of natural building materials such as wood, stone, etc., and the use of clean renewable energies with efficient use. 
+		</p>
+		<span style="font-size:200%;color:yellow;">&starf;</span><span style="font-size:200%;color:red;">&star;</span><span style="font-size:200%;color:blue;">&bigstar;</span>
+		<p dir="ltr" class="ArabicText1">
+			Our vision: We aim to rely on high-performance smart buildings in terms of building systems and services such as comfort, heating, ventilation, air conditioning, lighting, security, 
+			safety and fire. And the promotion of the highest levels of control for the various standards that will determine the health of the environment inside the building. 
+			It is also equipped with smart generation systems using renewable energy sources through innovative technologies (storage and control), 
+			in addition to being compatible with future updates. Smart building not only enhances the productivity and well-being of users, but also helps achieve resource efficiency, cost-effectiveness, flexibility and adaptability. 
+		</p>
+		<span style="font-size:200%;color:yellow;">&starf;</span><span style="font-size:200%;color:red;">&star;</span><span style="font-size:200%;color:blue;">&bigstar;</span>
+		<p dir="ltr" class="ArabicText1">
+			Values: continuous development in the production. Work to ensure the rights of the engineer and the safety of the community. We embrace teamwork, integrity and dedication to make the business a success.
+		</p>
+		<span style="font-size:200%;color:yellow;">&starf;</span><span style="font-size:200%;color:red;">&star;</span><span style="font-size:200%;color:blue;">&bigstar;</span>	 
+		</div>
+            <div class="map_block" style="background-color:white">
+                    <div class="map_title" style="font-family: Times New Roman, Times, serif; display: flex; justify-content: center;">
+                        <h2>Please book your visit by calling us or by email, WhatsApp, we will be happy to meet you in our office:</h2>
+                    </div>
+                <div >
+                        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3630.7617982580896!2d54.37143221499561!3d24.493708884228127!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0xb2ca7ff11cc485e4!2zMjTCsDI5JzM3LjQiTiA1NMKwMjInMjUuMCJF!5e0!3m2!1sen!2sru!4v1666279752139!5m2!1sen!2sru" width="100%" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+				</div>
+            </div>
+    </section>
+	
+		    <section>
+                <div class="map_block" style="background-color:#121313b0">
+                   
+                <div class="call_block">
+				<div class="red">
+					<div class="blue1">
+					</div>
+					<div class="blue1">
+					</div>
+					
+					<div class="blue1" style="border: 3px solid #0e0f0e63;">
+							<div>
+								<img src="/media/source/Person/Dani.jpg" alt="" style="width:75%; height:100%"> 
+								<figcaption> <p class="ArabicText2">Danial Shoufani: CEO </figcaption>
+								<figcaption> <p class="ArabicText2">Mechanical Power Engineering </figcaption>
+							</div>
+					</div>
+					
+					
+					
+					
+					<div class="blue1" >
+							<div>
+								<img src="/media/source/QrCode.JPG" alt="" style="width:80%; height:100%">
+								<figcaption> <p class="ArabicText2">Scan to connect </figcaption>
+								<figcaption> <p class="ArabicText1"> &nbsp </figcaption>
+								<figcaption> <p class="ArabicText1">  &nbsp </figcaption>
+							</div>
+					</div>
+					<div class="blue1">
+					</div>
+					
+					<div class="blue1">
+					</div>
+					<div class="blue1" style="border: 3px solid #0e0f0e63;">
+							<div>
+								<img src="/media/source/Person/Alaa.jpg" alt="" style="width:75%; height:100%">  
+								<figcaption>  <p class="ArabicText2"> Alaa: Executive Director</figcaption>
+								<figcaption>  <p class="ArabicText2"> Master in Urban and City Planning</figcaption>
+							</div>
+					</div>
+					
+					<div class="blue1" style="float:right">
+					<i class="fa fa-phone" style="font-size:36px;color:white"></i> 
+							<p  class="ArabicText2">Mobile: +971 50 964 2043</p>
+							<p  class="ArabicText2">Office: +971 50 964 2043</p>
+					</div>
+					
+                </div>
+                </div>
+    </section>
+<script>
+let slideIndex = 0;
+showSlides();
+
+function showSlides() {
+  let i;
+  let slides = document.getElementsByClassName("mySlides");
+  let dots = document.getElementsByClassName("dot");
+  for (i = 0; i < slides.length; i++) {
+    slides[i].style.display = "none";  
+  }
+  slideIndex++;
+  if (slideIndex > slides.length) {slideIndex = 1}    
+  for (i = 0; i < dots.length; i++) {
+    dots[i].className = dots[i].className.replace(" active", "");
+  }
+  slides[slideIndex-1].style.display = "block";  
+  dots[slideIndex-1].className += " active";
+  setTimeout(showSlides, 2500); // Change image every 2 seconds
+}
+
+function playpause(popup)
+{
+
+	popup.classList.toggle("show");
+	if (popup.paused){ 
+		popup.play(); 
+		}
+	  else{ 
+		popup.pause();
+		}
+}
+function myFunction1() 
+{
+	var popup = document.getElementById("myPopup1");
+	playpause(popup)
+}
+function myFunction2() 
+{
+	var popup = document.getElementById("myPopup2");
+	playpause(popup)
+}
+function myFunction3() 
+{
+	var popup = document.getElementById("myPopup3");
+	playpause(popup)
+}
+function myFunction4() 
+{
+	var popup = document.getElementById("myPopup4");
+	playpause(popup)
+}
+function myFunction5() 
+{
+	var popup = document.getElementById("myPopup5");
+	playpause(popup)
+}
+function myFunction5() 
+{
+	var popup = document.getElementById("myPopup6");
+	playpause(popup)
+}
+
+function openForm() {
+  document.getElementById("myForm").style.display = "block";
+}
+
+function closeForm() {
+  document.getElementById("myForm").style.display = "none";
+}
+function SendForm()
+{
+	    var link = "mailto:vision.architect21@gmail.com"
+             + "&subject=" + encodeURIComponent("Ask Question")
+             + "&body=" + encodeURIComponent(document.getElementById('myText').value)
+    ;
+    window.location.href = link;
+}
+</script>
+
 </body>
-</html>
-{% endblock %}
+</html> 

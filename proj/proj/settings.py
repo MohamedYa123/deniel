@@ -115,6 +115,7 @@ USE_L10N = True
 
 USE_TZ = True
 ALLOWED_HOSTS = ['*']
+
 STATICFILES_DIRS = [
    os.path.join(BASE_DIR, '/static/')
 ]
